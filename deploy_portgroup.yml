@@ -1,0 +1,31 @@
+- hosts: localhost
+  vars_prompt:
+    - name: esxi_username
+      prompt: ESXi username?
+      private: false
+
+    - name: esxi_password
+      prompt: ESXi password?
+
+    - name: portgroup_name
+      prompt: Set Portgroup name
+      private: false
+
+    - name: vlan_id
+      prompt: Set VLAN ID
+      private: false
+
+  tasks:
+    - name: Create vlan portgroup
+      vmware_portgroup:
+        hosts: [targets]
+        hostname: "{{ item }}"
+        username: "{{ esxi_username }}"
+        password: "{{ esxi_password }}"
+        validate_certs: no
+        switch_name: "vSwitch0"
+        portgroup_name: "{{ portgroup_name }}"
+        vlan_id: "{{ vlan_id }}"
+      delegate_to: localhost
+      with_items:
+        - "{{ groups['targets'] }}"
