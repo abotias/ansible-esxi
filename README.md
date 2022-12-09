@@ -1,6 +1,16 @@
 # Ansible ESXi
 Playbooks for the administration of ESXi.
 
+Requeriments:
+Install pyvmomi:
+```sh
+pip3 install pyvmomi
+```
+Install module vmware for ansible:
+```sh
+ansible-galaxy collection install community.vmware
+```
+
 File ansible.cfg:
 
 Contains the configuration where the inventory servers are set.
